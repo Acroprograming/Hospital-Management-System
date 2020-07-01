@@ -60,6 +60,21 @@ def create_app(test_config=None):
             flash(error)
 
         return render_template('login.html')
+    @app.route('/add_patient',methods=["GET","POST"])
+    def add_patient():
+        if request.method=="POST":
+            pid=request.form['patient_SSN_Id']
+            pname=request.form['Patient_Name']
+            page=request.form['Patient_Age']
+            doa=request.form['Date_of_Admission']
+            btype=request.form['bedtype']
+            address=request.form['Address']
+            state=request.form['State']
+            city=request.form['City']
+            db2=db.get_db()
+            db2.execute('INSERT INTO patient(patient_id,patient_name,patient_age,date_of_admission,type_of_room,address,state,city,date_of_joining) VALUES (?,?,?,?,?,?,?,?,"9");',(pid,pname,page,doa,btype,address,state,city))
+
+        return render_template('addpatientdetails.html')
 
     @app.route('/logout')
     def logout():
