@@ -74,7 +74,7 @@ def create_app(test_config=None):
             db2=db.get_db()
             db2.execute('INSERT INTO patient(patient_id,patient_name,patient_age,date_of_admission,type_of_room,address,state,city,date_of_joining) VALUES (?,?,?,?,?,?,?,?,"9");',(pid,pname,page,doa,btype,address,state,city))
 
-        return render_template('addpatientdetails.html')
+        return render_template('Sharan/addpatientdetails.html')
 
     @app.route('/logout')
     def logout():
