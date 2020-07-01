@@ -76,7 +76,11 @@ def create_app(test_config=None):
             db2.execute('INSERT INTO patient(patient_id,patient_name,patient_age,date_of_admission,type_of_room,address,state,city,date_of_joining) VALUES (?,?,?,?,?,?,?,?,"9");',(pid,pname,page,doa,btype,address,state,city))
             return redirect('index')
         return render_template('addpatientdetails.html')
-
+    @app.route('/view_patient',methods=('GET', 'POST'))
+    def view_patient():
+        db3=db.get_db()
+        plist=db3.execute('SELECT * FROM patient').fetchall()
+        return render_template('ViewPatient.html',plist=plist )
     @app.route('/logout')
     def logout():
         session.clear()
