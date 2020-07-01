@@ -60,7 +60,8 @@ def create_app(test_config=None):
             flash(error)
 
         return render_template('login.html')
-    @app.route('/add_patient', methods=("GET","POST")) 
+
+    @app.route('/add_patient',methods=["GET","POST"])
     def add_patient():
         if request.method=="POST":
             pid=request.form['patient_SSN_Id']
@@ -72,26 +73,16 @@ def create_app(test_config=None):
             state=request.form['State']
             city=request.form['City']
             db2=db.get_db()
-            db2.execute('INSERT INTO patient VALUES (?,?,?,?,?,?,?,?,?);',(pid,pname,page,doa,btype,address,state,city,"89"))
-
+            db2.execute('INSERT INTO patient(patient_id,patient_name,patient_age,date_of_admission,type_of_room,address,state,city,date_of_joining) VALUES (?,?,?,?,?,?,?,?,"9");',(pid,pname,page,doa,btype,address,state,city))
+            return redirect('index')
         return render_template('addpatientdetails.html')
-    @app.route('/view_patients', methods=('GET','POST'))
-    def view_patient():
-        db1 = db.get_db()
-        error = None
-        plist = db1.execute('SELECT * FROM patient;').fetchall()
-        #value = db1.execute('SELECT COUNT FROM patient;').fetchall()
-        return render_template('ViewPatient.html',plist=plist)
 
-    
     @app.route('/logout')
     def logout():
         session.clear()
         return redirect(url_for('index'))
     
     db.init_app(app)
-
-
 
     return app
 
