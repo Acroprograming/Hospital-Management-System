@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Pharmacy page</title>
+    <title>issuemedicinebypharmacist</title>
 <style>
 
 body {
@@ -92,68 +92,40 @@ tr:nth-child(even) {
 </div>
 
 <div text-align="center" class="content">
-<h1 size="40px"> Pharmacy  </h1>
+<h1 size="40px"></h1>
 
 
 <form method="GET" action="">
-	<tr> <td> <label for='patient SSN Id'>Patient SSN Id*:</label>
-	<input type="text" name="patient_SSN_Id" value="" placeholder="SSN Id" required> </td>
+	<tr> <td> <label for='Medicine'>Medicine:</label>
+	<input type="text" name="medicine" value=""required> </td>
 	
-	<td> <input type="submit" value="getDetails" class="button"> 
-	</td>	
+	<td> <label for='Quantity'>Quantity:</label>
+	<input type="text" name="quantity" value=""required> </td>
+	
+	
+	<td> <input type="submit" value="Issue" class="button"> 
+	</td>	</tr>
 </form>
-<table>
-  <tr>
-	<th> Patient Name: </th>
-	<th>Patient Age:</th>
-	<th> Date of Admission:</th>
-	<th> Type of Bed</th>
-	<th>Address:</th>
-	<th>State:</th>
-	<th>City:</th>
-  <tr>
-  <tr> 
-	<td> a</td>
-	<td>b </td>
-	<td> c</td>
-	<td>d </td>
-	<td> a</td>
-	<td>b </td>
-	<td> c</td>
- </tr>
-</table>
-
-</div>
 
 <div text-align="center" class="content">
+<table id='t01'>
 
-<h1 size="40px"> Medicines Issued  </h1>
-
-<table>
- <tr>
-	<th> Medicine: </th>
-	<th>Quantity:</th>
-	<th> Rate:</th>
-	<th> Amount</th>
- </tr>
- <tr> 
-	<td> a</td>
-	<td>b </td>
-	<td> c</td>
-	<td>d </td>
-	
- </tr>
+  <tr>
+    <th>medicine name</th>
+    <th>quantity</th>
+    <th>rate for each</th>
+	<th>Total amount</th>
+	</tr>
+  <tr>
+    <td> </td>
+    <td></td>
+    <td> </td>
+	<td></td>
+    
+  </tr>
 </table>
 
-<a href="issue_medicine.html" name="issue_medicine" class="button"> issue_medicine </a>
- 
-	
-
 </div>
-
-
-
-
 <div>
 <footer>
 	<nav>
