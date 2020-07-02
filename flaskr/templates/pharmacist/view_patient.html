@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Enter The SSN ID of Patient and Press View button to View Details of Patient</h1>
+<br>
+<div class="row">
+  <div class="col-sm-4"></div>
+  <div class="col-sm-4">
+ <form class="form-inline" action="{{ url_for('pharmacist.view_patient') }}" method="post">
+  <div class="form-group">
+    <label for="email">Patient SSN Id:</label>
+    <input size="9" class="form-control" name="patient_id">
+  </div>
+  <button type="submit" class="btn btn-default">View</button>
+</form>
+</div>
+</div>
+<br>
+{% if patients %}
+{% for patient in patients %}
+<div class="row">
+  <div class="col-sm-4"></div>
+  <form method="post">
+  <div class="col-sm-2">
+  		<h2><label class="control-label" for="patientid">Patient Id</label></h2>
+	
+		<h2><label class="control-label"  for="patientname">Patient Name</label></h2>
+	
+		<h2><label class="control-label"  for="patientage">Patient Age</label></h2>
+		
+		<h2><label class="control-label"  for="doa">Date of Admission</label></h2>
+		
+		<h2><label class="control-label"  for="typeofbed">Type of Bed</label></h2>
+		
+		<h2><label class="control-label"  for="address">Address</label></h2>
+		
+		<h2><label class="control-label"  for="state">State</label></h2>
+		
+		<h2><label class="control-label"  for="city">City</label></h2>
+		
+	</div>
+	<div class="col-sm-2">
+		<h2><input type="text" name="patient_id" value="{{ patient['patient_id'] }}"></h2>
+		
+		<h2><input type="text" name="patient_name" value="{{ patient['patient_name'] }}"></h2>
+		
+		<h2><input type="text"  name="patient_age" value="{{ patient['patient_age'] }}"></h2>
+		
+		<h2><input type="text" id="doa" name="date_of_addmision" value="{{ patient['date_of_admission'] }}"></h2>
+		
+		<h2><input type="text" name="type_of_room" value="{{ patient['type_of_room'] }}"></h2>
+		
+		<h2><input type="text" id="address" name="address" value="{{ patient['address'] }}"></h2>
+		
+		<h2><input type="text" id="state" name="state" value="{{ patient['state'] }}"></h2>
+		
+		<h2><input type="text" id="city" name="city" value="{{ patient['city'] }}"></h2>
+
+	</div>
+	</form>
+</div>
+
+{% endfor %}
+{% endif %}
+{% endblock %}

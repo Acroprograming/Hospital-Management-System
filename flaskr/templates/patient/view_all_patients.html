@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if patients %}
+	
+	<table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Patient Id</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Address</th>
+        <th>DOJ</th>
+        <th>Type of Room</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for patient in patients %}
+      <tr>
+        <td>{{ patient['patient_id'] }}</td>
+        <td>{{ patient.patient_name }}</td>
+        <td>{{ patient.patient_age }}</td>
+        <td>{{ patient.address }}</td>
+        <td>{{ patient.date_of_admission }}</td>
+        <td>{{ patient.type_of_room }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+	</table>
+{% endif %}
+<form action="{{ url_for('add_patient') }}">
+<center><button type="submit" class="btn btn-primary">Add Patient</button></center>
+</form>
+{% endblock %}

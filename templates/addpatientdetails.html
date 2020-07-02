@@ -68,21 +68,21 @@ input[type=text], input[type=password], input[list=bedtype] {
 <table>
 <div text-align="center" class="content">
 <h2 size="20px"> Patient Registration </h2>
-<form method="POST" action="">
-	<label for='patient SSN Id'>Patient SSN Id*:</label>
-	<input type="text" name="patient_SSN_Id:" value="" placeholder="SSN Id" required> </br>
+<form method="POST" action="{{ url_for('add_patient') }}">
+	<label for='patient_SSN_Id'>Patient SSN Id*:</label>
+	<input type="text" name="patient_SSN_Id" value="" placeholder="SSN Id" required> </br>
 	
-	<label for='Patient Name'>Patient Name*:</label>
-	<input type="text" name="Patient_Name:" value="" required> </br>
+	<label for='Patient_Name'>Patient Name*:</label>
+	<input type="text" name="Patient_Name" value="" required> </br>
 	
-	<label for='Patient Age'>Patient Age*:</label>
-	<input type="text" name="Patient_Age:" value="" required> </br>
+	<label for='Patient_Age'>Patient Age*:</label>
+	<input type="text" name="Patient_Age" value="" required> </br>
 	
-	<label for='Date of Admission'>Date of Admission*:</label>
-	<input type="text" name="Date_of_Admission:" value="" required> </br>
+	<label for='Date_of_Admission'>Date of Admission*:</label>
+	<input type="text" name="Date_of_Admission" value="" required> </br>
 	
 	
-	<label for='Type of Type:'>Type of Bed*</label>
+	<label for='bedtype'>Type of Bed*</label>
 	<input list="bedtype" name="bedtype" required>
 	<datalist id="bedtype">
 		<option value="General">
@@ -92,13 +92,13 @@ input[type=text], input[type=password], input[list=bedtype] {
 	</datalist>
 	</br>
 	
-	<label for='address'>Address*:</label>
+	<label for='Address'>Address*:</label>
 	<input type="textarea" name="Address" value="" required> </br>
 	
-	<label for='state'>State*:</label>
+	<label for='State'>State*:</label>
 	<input type="textarea" name="State" value="" required> </br>
 	
-	<label for='city'>City*:</label>
+	<label for='City'>City*:</label>
 	<input type="textarea" name="City" value="" required> </br>
 	<h6> * Required</h6>
 	<input type="submit" value="Submit" class="button" >

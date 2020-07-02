@@ -4,7 +4,7 @@
  <div class="row">
   <div class="col-sm-4"></div>
   <div class="col-sm-4">
-  	<form method="POST">
+  	<form method="POST" action="{{ url_for('auth.login') }}">
 	  <div class="form-group">
 	    <label for="username">Username:</label>
 	    <input class="form-control" name="username" required>

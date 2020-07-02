@@ -7,6 +7,8 @@ from flask import (
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 
+from .auth import login_required
+
 from . import db
 
 def create_app(test_config=None):
@@ -36,57 +38,79 @@ def create_app(test_config=None):
     def index():
         return 'Hello, World!'
 
-    @app.route('/login', methods=('GET', 'POST'))
-    def login():
-        if request.method == 'POST':
-            username = request.form['username']
-            password = request.form['password']
-            db1 = db.get_db()
-            error = None
-            user = db1.execute(
-                'SELECT * FROM user WHERE username = ?', (username,)
-            ).fetchone()
+    
 
-            if user is None:
-                error = 'Incorrect username.'
-            elif not check_password_hash(user['password'], password):
-                error = 'Incorrect password.'
-
-            if error is None:
-                session.clear()
-                session['user_id'] = user['id']
-                return redirect(url_for('index'))
-
-            flash(error)
-
-        return render_template('login.html')
-
-    @app.route('/add_patient',methods=["GET","POST"])
+    @app.route('/add_patient', methods=('GET', 'POST'))
+    @login_required
     def add_patient():
-        if request.method=="POST":
-            pid=request.form['patient_SSN_Id']
-            pname=request.form['Patient_Name']
-            page=request.form['Patient_Age']
-            doa=request.form['Date_of_Admission']
-            btype=request.form['bedtype']
-            address=request.form['Address']
-            state=request.form['State']
-            city=request.form['City']
+        if request.method == 'POST':
+            patient_id = request.form['patient_id']
+            patient_name = request.form['patient_name']
+            patient_age = request.form['patient_age']
+            date_of_addmision = request.form['date_of_addmision']
+            type_of_room = request.form['type_of_room']
+            address = request.form['address']
+            state = request.form['state']
+            city= request.form['city']
             db2=db.get_db()
-            db2.execute('INSERT INTO patient(patient_id,patient_name,patient_age,date_of_admission,type_of_room,address,state,city,date_of_joining) VALUES (?,?,?,?,?,?,?,?,"9");',(pid,pname,page,doa,btype,address,state,city))
-            return redirect('index')
-        return render_template('addpatientdetails.html')
-    @app.route('/view_patient',methods=('GET', 'POST'))
-    def view_patient():
+            res=db2.execute('INSERT INTO patient(patient_id,patient_name,patient_age,date_of_admission,type_of_room,address,state,city,date_of_joining) VALUES (?,?,?,?,?,?,?,?,"9");',(patient_id,patient_name,patient_age,date_of_addmision,type_of_room,address,state,city))
+            db2.commit()
+            print(res)
+            return redirect(url_for('view_patients'))
+        return render_template('patient/add_patient.html')
+
+    @app.route('/view_patients',methods=('GET', 'POST'))
+    @login_required
+    def view_patients():
         db3=db.get_db()
         plist=db3.execute('SELECT * FROM patient').fetchall()
-        return render_template('ViewPatient.html',plist=plist )
-    @app.route('/logout')
-    def logout():
-        session.clear()
-        return redirect(url_for('index'))
-    
+        print("PList")
+        print(plist)
+        return render_template('patient/view_all_patients.html',patients=plist )
+
+    @app.route('/delete_patient',methods=('GET', 'POST'))
+    @login_required
+    def delete_patient():
+        if request.method=='POST': 
+            patient_id=request.form['patient']
+            if not patient_id:
+                error="First search the patient you want to delete"
+                flash(error)
+            else:
+                db3=db.get_db()
+                db3.execute('Delete From patient where patient_id= ?',(patient_id,))
+                redirect(url_for('view_patients'))
+                db3.commit()
+                flash("Patient Deleted Successfully")
+            return render_template('patient/delete_patient.html')
+        return render_template('patient/delete_patient.html')
+
+    @app.route('/delete_patient_id',methods=('GET', 'POST'),endpoint="get_patient")
+    def get_patient():
+        if request.method == 'POST':
+            patient_id = request.form['patient_id']
+            db1=db.get_db()
+            error= None
+
+            if not patient_id:
+                error="patient_SSN_id is required"
+                flash(error)
+            else:
+                patient_details=db1.execute(
+                    'SELECT * FROM patient WHERE patient_id = ?', (patient_id,)
+                    ).fetchall()
+                print(5)
+                print(patient_details)
+                return render_template('patient/delete_patient.html',patients=patient_details)
+        return render_template('pharmacist/view_patient.html')
+
     db.init_app(app)
+
+    from . import pharmacist
+    app.register_blueprint(pharmacist.bp)
+
+    from . import auth
+    app.register_blueprint(auth.bp)
 
     return app
 
