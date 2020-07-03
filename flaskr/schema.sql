@@ -1,3 +1,4 @@
+
 CREATE TABLE  "diagnostics" (
 	"diagnostic_id"	int(10) NOT NULL,
 	"name_of_test"	varchar(255) NOT NULL,
@@ -34,5 +35,6 @@ CREATE TABLE  "user" (
 	"username"	varchar(255) NOT NULL,
 	"password"	varchar(255) NOT NULL
 );
+BEGIN TRANSACTION;
 INSERT INTO "user" ("username","password") VALUES ('admin','password');
 COMMIT;
