@@ -17,33 +17,41 @@
 		
 		<h2><label class="control-label"  for="doa">Date of Admission</label></h2>
 		
-		<h2><label class="control-label"  for="typeofbed">Type of Bed</label></h2>
-		
 		<h2><label class="control-label"  for="address">Address</label></h2>
 		
 		<h2><label class="control-label"  for="state">State</label></h2>
 		
 		<h2><label class="control-label"  for="city">City</label></h2>
+		<h2><label>type of room</label></h2>
 		
 	</div>
 	<div class="col-sm-2">
-		<h2><input type="text" name="patient_id" ></h2>
+		<h2><input type="text" name="patient_id" pattern="[0-9]{9}" required></h2>
 		
-		<h2><input type="text" name="patient_name" ></h2>
+		<h2><input type="text" name="patient_name" pattern="([A-zÀ-ž\s]){2,}" required></h2>
 		
-		<h2><input type="text"  name="patient_age" ></h2>
+		<h2><input type="text"  name="patient_age" pattern="[0-9]{2}" required></h2>
 		
-		<h2><input type="text" id="doa" name="date_of_addmision" ></h2>
+		<h2><input type="text" id="doa" name="date_of_addmision" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" required ></h2>
 		
-		<h2><input type="text" name="type_of_room" ></h2>
+		<h2><input type="text" id="address" name="address"  pattern="[a-zA-Z0-9 ]{2,35}]" required> </h2>
 		
-		<h2><input type="text" id="address" name="address"></h2>
+		<h2><input type="text" id="state" name="state" pattern="([A-zÀ-ž]){2,}" required></h2>
 		
-		<h2><input type="text" id="state" name="state"></h2>
-		
-		<h2><input type="text" id="city" name="city"></h2>
+		<h2><input type="text" id="city" name="city" pattern="([A-zÀ-ž]){2,}" required ></h2>
+
+		<h2><input list="rooms" name="type_of_room" required></h2>>
+              <datalist id="rooms">
+              <option value="single">
+              <option value="semi">
+              <option value="general">
+              </datalist>
+
 
 		<h2><button class="btn-primary" type="submit">Add Patient</button></h2>
+
+		
+
 	</div>
 	</form>
 </div>
