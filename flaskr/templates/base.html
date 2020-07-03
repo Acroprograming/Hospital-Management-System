@@ -1,5 +1,5 @@
 <!doctype html>
-<title>{% block title %}{% endblock %} Hospital Management System</title>
+
  <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
@@ -27,15 +27,22 @@
           <li><a href="#">Patient Billing Info</a></li>
         </ul>
       </li>
-      <li><a href="#">Pharmacy</a></li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Pharmacy
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="{{url_for('pharmacist.add_medicine') }}">Add Medicine</a></li>
+          <li><a href="{{url_for('pharmacist.patient_info') }}">Issue Medicine</a></li>
+        </ul>
+      </li>
       <li><a href="#">Diagonastics</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       {% if g.user %}
-      <li><span>{{ g.user['username'] }}</span>
-      <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
+      <li>{{ g.user['username'] }}</li>
+      <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
       {% else %}
-        <li><a href="{{ url_for('auth.login') }}">Log In</a>
+        <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
       {% endif %}
     </ul>
   </div>

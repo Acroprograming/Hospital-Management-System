@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+ 
+
+<center><h2 class="text-primary">Add Medicine</h2></center>
+
+<div class="row">
+  <div class="col-sm-4"></div>
+  <form method="post" action="{{ url_for('pharmacist.add_medicine') }}">
+  <div class="col-sm-2">
+  		<h2><label class="control-label" for="medicine_id">Medicine Id</label></h2>
+	
+		<h2><label class="control-label"  for="medicine_name">Medicine Name</label></h2>
+	
+		<h2><label class="control-label"  for="patientage">Medicine Rate</label></h2>
+
+		<h2><label class="control-label"  for="patientage">Quantity</label></h2>
+		
+	</div>
+	<div class="col-sm-2">
+		<h2><input type="text" name="medicine_id" ></h2>
+		
+		<h2><input type="text" name="medicine_name" ></h2>
+		
+		<h2><input type="text"  name="medicine_rate" ></h2>
+		<h2><input type="text"  name="available_quantity" ></h2>
+		<h2><button class="btn-primary" type="submit">Add</button></h2>
+	</div>
+	</form>
+</div>
+{% endblock %}

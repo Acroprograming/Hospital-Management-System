@@ -1,7 +1,7 @@
 CREATE TABLE  "diagnostics" (
 	"diagnostic_id"	int(10) NOT NULL,
 	"name_of_test"	varchar(255) NOT NULL,
-	"amount"	decimal(19, 0) DEFAULT NULL
+	"amount"	Numeric DEFAULT NULL
 );
 CREATE TABLE  "diagnostics_conducted" (
 	"patient_id"	int(10) NOT NULL,
@@ -10,11 +10,13 @@ CREATE TABLE  "diagnostics_conducted" (
 CREATE TABLE  "medicine" (
 	"medicine_id"	int(10) NOT NULL,
 	"medicine_name"	varchar(255) NOT NULL,
-	"rate"	decimal(19, 0) NOT NULL
+	"available_quantity" int(10) DEFAULT 0,
+	"rate"	Numeric NOT NULL
 );
 CREATE TABLE  "medicine_issued" (
 	"patient_id"	int(10) NOT NULL,
-	"medicine_id"	int(10) NOT NULL
+	"medicine_id"	int(10) NOT NULL,
+	"quantity_issued" int(10) DEFAULT 0
 );
 CREATE TABLE  "patient" (
 	"patient_id"	int(10) NOT NULL,

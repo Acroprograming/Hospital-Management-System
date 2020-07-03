@@ -1,0 +1,56 @@
+<!doctype html>
+
+ <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<div class="row">
+  <div class="col-sm-4"></div>
+  <div class="col-sm-4">
+{% if medicines %}
+	<div id="add"></div>
+	<table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Medicine Name</th>
+        <th>Medicine Rate</th>
+        <th>Available Quantity</th>
+        <th>Quantity to Issue</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for medicine in medicines %}
+      <tr>
+        <td>{{ medicine.medicine_name }}</td>
+        <td>{{ medicine.rate }}</td>
+        <td>{{ medicine.available_quantity }}</td>
+        <td><input type="text"  name="quantity_issued" id="quantity_issued"></td>
+        <td><center><button class="btn btn-primary" id="issue-btn" onclick="issue({{ medicine.medicine_id }})">Issue</button></center></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+	</table>
+</div>
+{% endif %}
+</div>
+<script >
+      var patient_id={{ patient_id }}
+      var quantity_issued= $("#quantity_issued").val()
+
+      $(document).ready(function(){
+        $("#issue-btn").click(function(){
+           quantity_issued=$("#quantity_issued").val();
+        });
+      });
+        function issue(i){
+        
+        $(document).ready(function(){
+          $("#add").load("{{ url_for('pharmacist.issue_medicine') }}",{ 'patient_id':patient_id,'medicine_id': i,'quantity_issued':quantity_issued });
+          });
+      }
+  </script>
