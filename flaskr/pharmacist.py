@@ -96,9 +96,13 @@ def issue_medicine():
 		medicine_id = request.form['medicine_id']
 		patient_id = request.form['patient_id']
 		quantity_issued = request.form['quantity_issued']
+		available_quantity=request.form['available_quantity']
 		db2=get_db()
 		res=db2.execute('INSERT INTO medicine_issued(medicine_id,patient_id,quantity_issued) VALUES (?,?,?);',(medicine_id,patient_id,quantity_issued))
 		db2.commit()
+		db3=get_db()
+		res=db3.execute('UPDATE medicine SET available_quantity= ? Where medicine_id= ?',(available_quantity,medicine_id))
+		db3.commit()
 		return "Medicine Issued to Patient please refresh the page to see the changes"
 	return "Medicine can't be issued"
 

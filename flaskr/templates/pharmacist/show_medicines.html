@@ -29,8 +29,8 @@
         <td>{{ medicine.medicine_name }}</td>
         <td>{{ medicine.rate }}</td>
         <td>{{ medicine.available_quantity }}</td>
-        <td><input type="text"  name="quantity_issued" id="quantity_issued"></td>
-        <td><center><button class="btn btn-primary" id="issue-btn" onclick="issue({{ medicine.medicine_id }})">Issue</button></center></td>
+        <td><input type="text"  name="quantity_issued" id="{{ medicine.medicine_id }}"></td>
+        <td><center><button class="btn btn-primary" id="issue-btn" onclick="issue({{ medicine.medicine_id }}, {{ medicine.available_quantity }} )">Issue</button></center></td>
       </tr>
     {% endfor %}
     </tbody>
@@ -47,10 +47,24 @@
            quantity_issued=$("#quantity_issued").val();
         });
       });
-        function issue(i){
+        function issue(medicine_id,available_quantity){
         
         $(document).ready(function(){
-          $("#add").load("{{ url_for('pharmacist.issue_medicine') }}",{ 'patient_id':patient_id,'medicine_id': i,'quantity_issued':quantity_issued });
-          });
+          var idd="#"+medicine_id;
+          var quantity_issued=$(idd).val();
+          //alert(available_quantity>=quantity_issued);
+
+          if(available_quantity>=quantity_issued){
+            available_quantity=available_quantity-quantity_issued;
+          $("#add").load("{{ url_for('pharmacist.issue_medicine') }}",{ 'patient_id':patient_id,'medicine_id': medicine_id,'quantity_issued':quantity_issued,'available_quantity': available_quantity});
+
+        }
+        else{
+        alert("Quantity not available");
       }
+
+          });
+      
+      
+    }
   </script>

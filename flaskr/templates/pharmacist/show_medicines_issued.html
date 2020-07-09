@@ -39,21 +39,3 @@
 </div>
 {% endif %}
 </div>
-<script >
-      var patient_id={{ patient_id }}
-      var quantity_issued= $("#quantity_issued").text()
-
-      $(document).ready(function() {
-   $("#med-table .amount").each(function(){
-       $( this ).text(number($( this ).next().text()) *  number($( this ).prev().text()))  
-         // do whatever validation you want inside $(this).html("VALIDATION OUTPUT")
-   });
-
-}
-        function issue(i){
-    
-        $(document).ready(function(){
-          $("#add").load("{{ url_for('pharmacist.issue_medicine') }}",{ 'patient_id':patient_id,'medicine_id': i,'quantity_issued':quantity_issued });
-          });
-      }
-  </script>
