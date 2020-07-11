@@ -1,0 +1,47 @@
+<!doctype html>
+
+ <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<div class="row">
+  <div class="col-sm-4"></div>
+  <div class="col-sm-4">
+{% if diagnostics %}
+	<div id="add"></div>
+	<table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Test Name</th>
+        <th>Test Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for diagnostic in diagnostics %}
+      <tr>
+        <td>{{ diagnostic.name_of_test }}</td>
+        <td>{{ diagnostic.amount }}</td>
+        <td><center><button class="btn btn-primary" id="issue-btn" onclick="issue({{ diagnostic.diagnostic_id }})">Add</button></center></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+	</table>
+</div>
+{% endif %}
+</div>
+<script >
+      var patient_id={{ patient_id }};
+
+      function issue(diagnostic_id){
+        
+        $(document).ready(function(){
+          
+          $("#add").load("{{ url_for('diagnostics.issue_diagnostics') }}",{ 'patient_id':patient_id,'diagnostic_id': diagnostic_id});
+          });
+      };
+  </script>

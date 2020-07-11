@@ -19,6 +19,7 @@ def view_patient():
 
 		if not patient_id:
 			error="patient_SSN_id is required"
+			flash(error)
 		else:
 			patient_details=db1.execute(
 				'SELECT * FROM patient WHERE patient_id = ?', (patient_id,)

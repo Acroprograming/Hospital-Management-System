@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+ 
+
+<center><h2 class="text-primary">Add Diagnostics</h2></center>
+
+<div class="row">
+  <div class="col-sm-4"></div>
+  <form method="post" action="{{ url_for('diagnostics.add_diagnostics') }}">
+  <div class="col-sm-2">
+  		<h2><label class="control-label" for="diagnostics_id">Diagnostics Id</label></h2>
+	
+		<h2><label class="control-label"  for="diagnostics_name">Diagnostics Name</label></h2>
+	
+		<h2><label class="control-label"  for="patientage">Diagnostics Amount</label></h2>
+
+		
+	</div>
+	<div class="col-sm-2">
+		<h2><input type="text" name="diagnostics_id" ></h2>
+		
+		<h2><input type="text" name="diagnostics_name" ></h2>
+		
+		<h2><input type="text"  name="diagnostics_amount" ></h2>
+		
+		<h2><button class="btn-primary" type="submit">Add</button></h2>
+	</div>
+	</form>
+</div>
+{% endblock %}

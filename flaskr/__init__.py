@@ -153,6 +153,9 @@ def create_app(test_config=None):
     from . import pharmacist
     app.register_blueprint(pharmacist.bp)
 
+    from . import diagnostics
+    app.register_blueprint(diagnostics.bp)
+
     from . import auth
     app.register_blueprint(auth.bp)
 

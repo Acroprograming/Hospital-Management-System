@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Enter The SSN ID of Patient and Press View button to View Details of Patient</h1>
+<br>
+<div class="row">
+  <div class="col-sm-4"></div>
+  <div class="col-sm-4">
+ <form class="form-inline" action="{{ url_for('diagnostics.patient_info') }}" method="post">
+  <div class="form-group">
+    <label for="email">Patient SSN Id:</label>
+    <input size="9" class="form-control" name="patient_id">
+  </div>
+  <button type="submit" class="btn btn-default">View</button>
+</form>
+</div>
+</div>
+<br>
+{% if patients %}
+<h3>Patient Information</h3>
+	
+	<table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Patient Id</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Address</th>
+        <th>DOJ</th>
+        <th>Type of Room</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for patient in patients %}
+      <tr>
+        <td>{{ patient['patient_id'] }}</td>
+        <td>{{ patient.patient_name }}</td>
+        <td>{{ patient.patient_age }}</td>
+        <td>{{ patient.address }}</td>
+        <td>{{ patient.date_of_admission }}</td>
+        <td>{{ patient.type_of_room }}</td>
+      </tr>
+      <br>
+      <br>
+      
+      <script >
+			var patient_id={{ patient['patient_id'] }}
+
+			$(document).ready(function(){
+		    $("#medicines_issued").load("{{ url_for('diagnostics.diagnostics_conducted') }}",{ 'patient':{{ patient['patient_id'] }} });
+		    });
+
+		    function issue_medicine(){
+		
+				$(document).ready(function(){
+			    $("#medicine_list").load("{{ url_for('diagnostics.show_diagnostics') }}",{ 'patient_id':patient_id });
+			    });
+			}
+	</script>
+    {% endfor %}
+    </tbody>
+	</table>
+	<div id="medicines_issued" class="jumbotron"></div>
+
+	<center><button class="btn btn-primary" onclick="issue_medicine()">Assign Diagnostics</button></center>
+	<br>
+	<div id="medicine_list" class="jumbotron"></div>
+{% endif %}
+
+{% endblock %}

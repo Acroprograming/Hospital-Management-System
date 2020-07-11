@@ -35,7 +35,15 @@
           <li><a href="{{url_for('pharmacist.patient_info') }}">Issue Medicine</a></li>
         </ul>
       </li>
-      <li><a href="#">Diagonastics</a></li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Diagnostics
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="{{url_for('diagnostics.add_diagnostics') }}">Add Diagnostics Test</a></li>
+          <li><a href="{{url_for('diagnostics.patient_info') }}">Assign Diagnostics</a></li>
+        </ul>
+      </li>
+      
     </ul>
     <ul class="nav navbar-nav navbar-right">
       {% if g.user %}
