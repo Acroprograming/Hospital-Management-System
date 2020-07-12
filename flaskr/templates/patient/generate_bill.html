@@ -72,6 +72,9 @@
     $(document).ready(function(){
         $("#pharmacy_charges").load("{{ url_for('medicines_bill') }}",{ 'patient':{{ patient['patient_id'] }} });
         });
+    $(document).ready(function(){
+        $("#diagnostics_charges").load("{{ url_for('diagnostics_bill') }}",{ 'patient':{{ patient['patient_id'] }} });
+        });
   </script>
 {% endif %}
 

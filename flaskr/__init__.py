@@ -184,6 +184,22 @@ def create_app(test_config=None):
                     ).fetchall()
             return render_template('patient/medicines_bill.html',medicines=medicines)
         return 'Hello, World! Get'
+    
+    @app.route('/diagnostics_bill', methods=('GET', 'POST'))
+    @login_required
+    def diagnostics_bill():
+        if request.method == 'POST':
+            patient_id = request.form['patient']
+            db1=db.get_db()
+            error= None
+            if not patient_id:
+                error="patient_SSN_id is required"
+            else:
+                diagnostics=db1.execute(
+                    'SELECT * FROM diagnostics INNER JOIN diagnostics_conducted on diagnostics.diagnostic_id = diagnostics_conducted.diagnostic_id WHERE patient_id = ?', (patient_id,)
+                    ).fetchall()
+            return render_template('patient/diagnostics_bill.html',diagnostics=diagnostics)
+        return 'Hello, World! Get'
 
 
     db.init_app(app)
