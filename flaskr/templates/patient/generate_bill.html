@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Enter The SSN ID of Patient and Press View button to View Details of Patient</h1>
+<br>
+<div class="row">
+  <div class="col-sm-4"></div>
+  <div class="col-sm-4">
+ <form class="form-inline" action="{{ url_for('generate_bill') }}" method="post">
+  <div class="form-group">
+    <label for="email">Patient SSN Id:</label>
+    <input size="9" class="form-control" name="patient_id">
+  </div>
+  <button type="submit" class="btn btn-default">View</button>
+</form>
+</div>
+</div>
+<br>
+{% if patient %}
+<h3>Patient Information</h3>
+	
+	<table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Patient Id</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Address</th>
+        <th>DOJ</th>
+        <th>Type of Room</th>
+        <th>Date of Discharge</th>
+        <th>Number of Days</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ patient['patient_id'] }}</td>
+        <td>{{ patient.patient_name }}</td>
+        <td>{{ patient.patient_age }}</td>
+        <td>{{ patient.address }}</td>
+        <td>{{ patient.date_of_admission }}</td>
+        <td>{{ patient.type_of_room }}</td>
+        <th>{{ today_date }}</th>
+        <th>{{ no_of_days }}</th>
+      </tr>
+      <br>
+      <br>
+    </tbody>
+	</table>
+  <div class="row">
+  <div class="col-sm-8"></div>
+  <div class="col-sm-2">
+      <h4><label class="control-label" for="patientid">Bill for Room:</label></h4>
+  </div>
+  <div class="col-sm-2">
+    {% if patient.type_of_room == 'Single' %}
+      <h4>{{ 8000 * no_of_days }}</h4>
+    {% elif patient.type_of_room == 'General' %}
+      <h4>{{ 2000 * no_of_days }}</h4>
+    {% elif patient.type_of_room == 'Semi Sharing' %}
+      <h4>{{ 4000 * no_of_days }}</h4>
+    {% endif %}
+  </div>
+  
+
+  
+	<div id="pharmacy_charges" class="jumbotron"></div>
+	<br>
+	<div id="diagnostics_charges" class="jumbotron"></div>
+
+  <script>
+    $(document).ready(function(){
+        $("#pharmacy_charges").load("{{ url_for('medicines_bill') }}",{ 'patient':{{ patient['patient_id'] }} });
+        });
+  </script>
+{% endif %}
+
+{% endblock %}

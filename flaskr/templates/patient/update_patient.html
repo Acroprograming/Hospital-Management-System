@@ -62,7 +62,7 @@
 <div class="row">
   <div class="col-sm-4"></div>
   <div class="col-sm-4">
- <form action="{{ url_for('delete_patient') }}" method="post">
+ <form action="{{ url_for('update_patient') }}" method="post">
   <div class="form-group">
   	<input type="=hidden" style="display: none;" name="patient" value="{{ patient['patient_id'] }}">
   <center><button type="submit" class="btn btn-primary">Update</button></center>

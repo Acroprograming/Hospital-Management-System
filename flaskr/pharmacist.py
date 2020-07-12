@@ -65,6 +65,7 @@ def show_medicines_issued():
 		return render_template('pharmacist/show_medicines_issued.html',medicines=medicines)
 	return 'Hello, World! Get'
 
+
 @bp.route('/show_medicines', methods=('GET', 'POST'))
 @login_required
 def show_medicines():

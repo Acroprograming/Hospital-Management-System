@@ -20,11 +20,11 @@
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="{{url_for('add_patient') }}">Creat Patient</a></li>
-          <li><a href="#">Update Patient</a></li>
+          <li><a href="{{url_for('update_patient') }}">Update Patient</a></li>
           <li><a href="{{url_for('delete_patient') }}">Delete Patient</a></li>
           <li><a href="{{url_for('view_patients') }}">View Patients</a></li>
           <li><a href="{{url_for('pharmacist.view_patient') }}">Search Patient</a></li>
-          <li><a href="#">Patient Billing Info</a></li>
+          <li><a href="{{url_for('generate_bill') }}">Patient Billing Info</a></li>
         </ul>
       </li>
       <li class="dropdown">

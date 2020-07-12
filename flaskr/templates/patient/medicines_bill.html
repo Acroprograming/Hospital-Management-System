@@ -14,8 +14,8 @@
   <div class="col-sm-4">
     
 {% if medicines %}
-	<div id="add"></div>
-	<table class="table table-hover" id="med-table">
+  <h2>Pharmacy Bill</h2>
+  <table class="table table-hover" id="med-table">
     <thead>
       <tr>
         <th>Medicine Name</th>
@@ -26,6 +26,7 @@
       </tr>
     </thead>
     <tbody>
+    {% set total_amount = [0] %}
     {% for medicine in medicines %}
       <tr>
         <td>{{ medicine.medicine_name }}</td>
@@ -33,11 +34,28 @@
         <td>{{ medicine.quantity_issued }}</td>
         
         <td>{{ medicine.rate }}</td>
-        <td class="amount">{{ medicine.quantity_issued * medicine.rate}}</td>
+        {% set amount = (medicine.quantity_issued * medicine.rate) | int %}
+        <td>{{ amount }}</td>
+
+        {% if total_amount.append(total_amount.pop() + amount ) %}{% endif %} 
+
       </tr>
+      
     {% endfor %}
+    
     </tbody>
-	</table>
+  </table>
+</div>
+</div>
+  <div class="row">
+  <div class="col-sm-4"></div>
+  <div class="col-sm-3">
+      <h4><label class="control-label" for="patientid">Bill for Pharmacy:</label></h4>
+  </div>
+  <div class="col-sm-2">
+    <h4>{{ total_amount[0] }}</h4>
+  </div>
+</div>
 </div>
 {% endif %}
 </div>

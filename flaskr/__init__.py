@@ -9,7 +9,7 @@ from flask import (
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from .auth import login_required
-
+import datetime
 from . import db
 
 def create_app(test_config=None):
@@ -147,6 +147,44 @@ def create_app(test_config=None):
                 print(patient_details)
                 return render_template('patient/update_patient.html',patients=patient_details)
         return render_template('pharmacist/view_patient.html')
+
+    @app.route('/generate_bill',methods=('GET', 'POST'))
+    @login_required
+    def generate_bill():
+        if request.method == 'POST':
+            patient_id = request.form['patient_id']
+            db1=db.get_db()
+            error= None
+
+            if not patient_id:
+                error="patient_SSN_id is required"
+                flash(error)
+            else:
+                patient_details=db1.execute(
+                    'SELECT * FROM patient WHERE patient_id = ?', (patient_id,)
+                    ).fetchone()
+                print(patient_details)
+                today_date=datetime.datetime.now()
+                no_of_days=today_date - datetime.datetime.strptime(patient_details['date_of_admission'],"%Y-%m-%d")
+                return render_template('patient/generate_bill.html',patient=patient_details,today_date=datetime.date.today(),no_of_days=no_of_days.days)
+        return render_template('patient/generate_bill.html')
+
+    @app.route('/medicines_bill', methods=('GET', 'POST'))
+    @login_required
+    def medicines_bill():
+        if request.method == 'POST':
+            patient_id = request.form['patient']
+            db1=db.get_db()
+            error= None
+            if not patient_id:
+                error="patient_SSN_id is required"
+            else:
+                medicines=db1.execute(
+                    'SELECT * FROM medicine INNER JOIN medicine_issued on medicine.medicine_id = medicine_issued.medicine_id WHERE patient_id = ?', (patient_id,)
+                    ).fetchall()
+            return render_template('patient/medicines_bill.html',medicines=medicines)
+        return 'Hello, World! Get'
+
 
     db.init_app(app)
 
